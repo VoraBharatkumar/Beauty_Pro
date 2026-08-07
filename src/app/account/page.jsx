@@ -8,10 +8,7 @@ import {
   UserIcon,
   ShoppingBagIcon,
   HeartIcon,
-  MapPinIcon,
   CogIcon,
-  BellIcon,
-  CreditCardIcon,
   ChevronRightIcon,
   StarIcon,
   ArrowRightOnRectangleIcon,
@@ -21,10 +18,6 @@ const menuItems = [
   { title: 'Profile', href: '/account', icon: UserIcon },
   { title: 'Orders', href: '/account/orders', icon: ShoppingBagIcon },
   { title: 'Wishlist', href: '/account/wishlist', icon: HeartIcon },
-  { title: 'Addresses', href: '/account/address', icon: MapPinIcon },
-  { title: 'Payment Methods', href: '/account/cards', icon: CreditCardIcon },
-  { title: 'Notifications', href: '/account/notifications', icon: BellIcon },
-  { title: 'Settings', href: '/account/settings', icon: CogIcon },
 ];
 
 const LogoutIcon = ArrowRightOnRectangleIcon;

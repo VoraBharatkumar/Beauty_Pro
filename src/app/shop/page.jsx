@@ -7,17 +7,23 @@ export default function ShopPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [error, setError] = useState(null);
 
   const loadProducts = useCallback(async () => {
     try {
+      setError(null);
       const url = selectedCategory === 'all' ? '/api/products' : `/api/products?category=${selectedCategory}`;
       const res = await fetch(url);
+      if (!res.ok) {
+        throw new Error(`Request failed with status ${res.status}`);
+      }
       const data = await res.json();
       if (data.success) {
         setProducts(data.products);
       }
     } catch (error) {
       console.error('Failed to load products:', error);
+      setError(error.message || 'Unable to load products. Please try again later.');
     } finally {
       setLoading(false);
     }
@@ -74,6 +80,18 @@ export default function ShopPage() {
           </div>
         </div>
       </div>
+
+      {/* Error Banner */}
+      {error && !loading && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4">
+          <div className="rounded-2xl border border-red-200 bg-red-50 p-4 text-red-700">
+            <p className="font-medium">{error}</p>
+            <button className="mt-2 underline underline-offset-2" onClick={loadProducts}>
+              Retry
+            </button>
+          </div>
+        </div>
+      )}
 
       {/* Products Grid */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
