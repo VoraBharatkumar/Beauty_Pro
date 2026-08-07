@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500">
+    <defs>
+      <linearGradient id="grad-makeup" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stop-color="#FADADD" stop-opacity="1" />
+        <stop offset="100%" stop-color="#D9B29C" stop-opacity="1" />
+      </linearGradient>
+    </defs>
+    <rect width="400" height="500" fill="url(#grad-makeup)" rx="24"/>
+    <g transform="translate(0,0)">
+      <path d="M200 130 C170 130, 140 160, 140 200 C140 240, 180 270, 200 300 C220 270, 260 240, 260 200 C260 160, 230 130, 200 130 Z" fill="#FFFFFF" opacity="0.3"/>
+    </g>
+    <text x="200" y="320" font-family="Georgia,serif" font-size="24" fill="#1B1B1B" text-anchor="middle">Velvet Matte</text>
+    <text x="200" y="360" font-family="Arial,sans-serif" font-size="14" fill="#A87363" text-anchor="middle">LUNA BEAUTY</text>
+  </svg>

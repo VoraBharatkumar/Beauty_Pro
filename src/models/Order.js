@@ -1,0 +1,93 @@
+import mongoose from 'mongoose';
+
+const orderSchema = new mongoose.Schema({
+  orderId: { type: String, unique: true, index: true },
+  invoiceNumber: { type: String, unique: true, sparse: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', index: true, required: false },
+  items: [{
+    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product', required: false },
+    name: String,
+    price: Number,
+    quantity: { type: Number, min: 1 },
+    variant: String,
+    image: String,
+    hsnCode: { type: String, default: '3304' },
+    gstRate: { type: Number, default: 18 },
+  }],
+  subtotal: { type: Number, required: true },
+  discount: { type: Number, default: 0 },
+  shipping: { type: Number, default: 0 },
+  taxAmount: { type: Number, default: 0 },
+  total: { type: Number, required: true },
+  coupon: {
+    code: String,
+    type: String,
+    discount: Number,
+  },
+  shippingAddress: {
+    name: String,
+    phone: String,
+    alternatePhone: String,
+    email: String,
+    address: String,
+    addressLine2: String,
+    landmark: String,
+    city: String,
+    state: String,
+    pincode: String,
+    addressType: { type: String, enum: ['Home', 'Office', 'Other'], default: 'Home' },
+  },
+  orderNotes: String,
+  whatsappNumber: { type: String, default: '' },
+  paymentMethod: { type: String, default: 'Razorpay' },
+  paymentStatus: { type: String, enum: ['Pending', 'Paid', 'Failed', 'Refunded', 'Partially Refunded'], default: 'Pending' },
+  orderStatus: { type: String, enum: ['Pending', 'Confirmed', 'Packed', 'Shipped', 'Out For Delivery', 'Delivered', 'Cancelled', 'Returned'], default: 'Pending' },
+  trackingStatus: {
+    courierPartner: String,
+    trackingNumber: String,
+    trackingUrl: String,
+    estimatedDelivery: Date,
+    deliveredAt: Date,
+  },
+  paidAt: { type: Date },
+  paymentDetails: {
+    transactionId: String,
+    paymentMethod: String,
+    bankReference: String,
+    paymentGateway: String,
+  },
+  statusHistory: [{
+    status: String,
+    note: String,
+    timestamp: { type: Date, default: Date.now },
+  }],
+  bill: {
+    billNumber: String,
+    generatedAt: Date,
+    gstin: { type: String, default: '27ABCDE1234F1Z5' },
+    placeOfSupply: { type: String, default: 'Maharashtra' },
+    taxableValue: Number,
+    cgst: Number,
+    sgst: Number,
+    igst: Number,
+    grandTotal: Number,
+    amountInWords: String,
+    whatsappSentAt: Date,
+    whatsappStatus: { type: String, enum: ['pending', 'sent', 'failed'], default: 'pending' },
+  },
+  notes: String,
+  isGift: { type: Boolean, default: false },
+  giftNote: String,
+  isDelivered: { type: Boolean, default: false },
+  deliveredAt: Date,
+  cancelledAt: Date,
+  cancellationReason: String,
+  returnReason: String,
+  returnedAt: Date,
+}, { timestamps: true });
+
+orderSchema.index({ orderId: 1 });
+orderSchema.index({ user: 1, createdAt: -1 });
+orderSchema.index({ orderStatus: 1 });
+
+export default mongoose.models.Order || mongoose.model('Order', orderSchema);
