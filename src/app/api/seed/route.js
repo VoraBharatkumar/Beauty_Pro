@@ -87,6 +87,12 @@ export async function POST(request) {
       { name: 'Relaxing Massage Oil', slug: 'massage-oil', category: 'body-care', description: 'Warm massage oil for relaxation', price: 1699, originalPrice: 1999, rating: 4.5, reviewCount: 47, stock: 50, images: [{ url: '/images/products/body-care-massage-oil.svg', alt: 'Massage Oil', isPrimary: true }], benefits: ['Relaxing', 'Nourishes'], ingredients: 'Jojoba Oil, Lavender Oil, Vitamin E', howToUse: 'Warm and massage into skin' },
     ];
 
+    // Apply the same image to ALL products as requested
+    const ALL_PRODUCT_IMAGE = '/images/products/makeup-eyeshadow.svg';
+    for (const product of products) {
+      product.images = [{ url: ALL_PRODUCT_IMAGE, alt: product.name, isPrimary: true }];
+    }
+
     let created = 0;
     let updated = 0;
 

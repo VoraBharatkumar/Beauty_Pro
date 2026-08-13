@@ -20,15 +20,7 @@ const footerLinks = {
       { title: 'FAQ', href: '/faq' },
     ],
   },
-  support: {
-    title: 'Support',
-    links: [
-      { title: 'Shipping Info', href: '/shipping' },
-      { title: 'Returns', href: '/returns' },
-      { title: 'Track Order', href: '/track-order' },
-      { title: 'Privacy Policy', href: '/privacy' },
-    ],
-  },
+  
 };
 
 // Elegant social icon
@@ -37,10 +29,10 @@ const SocialIcon = ({ path, label, href }) => (
     href={href}
     whileHover={{ scale: 1.1, y: -2 }}
     whileTap={{ scale: 0.95 }}
-    className="w-9 h-9 md:w-10 md:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-beauty-rose-gold hover:border-beauty-rose-gold hover:bg-white/10 transition-all duration-300"
+    className="w-8 h-8 md:w-9 md:h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white/60 hover:text-beauty-rose-gold hover:border-beauty-rose-gold hover:bg-white/10 transition-all duration-300"
     aria-label={label}
   >
-    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+    <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
       <path d={path} />
     </svg>
   </motion.a>
@@ -52,19 +44,19 @@ export function Footer() {
       {/* Top gradient line */}
       <div className="h-[1px] bg-gradient-to-r from-transparent via-beauty-rose-gold/60 to-transparent" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-10">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 mb-6">
           {/* Brand */}
           <div className="col-span-2 md:col-span-1">
-            <Link href="/" className="inline-block mb-4">
-              <span className="font-serif text-2xl font-bold text-white tracking-wide">
+            <Link href="/" className="inline-block mb-3">
+              <span className="font-serif text-xl md:text-2xl font-bold text-white tracking-wide">
                 Beauty_Pro
               </span>
             </Link>
-            <p className="text-white/50 text-sm leading-relaxed mb-6">
+            <p className="text-white/50 text-xs md:text-sm leading-relaxed mb-4">
               Luxury cosmetics crafted with passion. Discover your radiance.
             </p>
-            <div className="flex gap-3">
+            <div className="flex gap-2">
               <SocialIcon
                 path="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
                 label="Facebook"
@@ -91,15 +83,15 @@ export function Footer() {
           {/* Links */}
           {Object.values(footerLinks).map((section) => (
             <div key={section.title}>
-              <h4 className="font-serif text-base font-semibold text-white mb-4 tracking-wide">
+              <h4 className="font-serif text-sm md:text-base font-semibold text-white mb-3 tracking-wide">
                 {section.title}
               </h4>
-              <ul className="space-y-2.5 md:space-y-3">
+              <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.title}>
                     <Link
                       href={link.href}
-                      className="text-sm text-white/50 hover:text-beauty-rose-gold transition-colors duration-300 relative group inline-block"
+                      className="text-xs md:text-sm text-white/50 hover:text-beauty-rose-gold transition-colors duration-300 relative group inline-block"
                     >
                       {link.title}
                       <span className="absolute -bottom-0.5 left-0 w-0 h-[1px] bg-beauty-rose-gold group-hover:w-full transition-all duration-300" />
@@ -112,16 +104,10 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 md:pt-10 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-center">
-          <p className="text-sm text-white/40">
+        <div className="pt-5 border-t border-white/10 text-center">
+          <p className="text-xs md:text-sm text-white/40">
             © {new Date().getFullYear()} Beauty_Pro. All rights reserved.
           </p>
-          <div className="flex items-center gap-4 text-white/40 text-xs md:text-sm tracking-wider">
-            <span className="hover:text-beauty-rose-gold transition-colors cursor-default">VISA</span>
-            <span className="hover:text-beauty-rose-gold transition-colors cursor-default">MC</span>
-            <span className="hover:text-beauty-rose-gold transition-colors cursor-default">PayPal</span>
-            <span className="hover:text-beauty-rose-gold transition-colors cursor-default">Razorpay</span>
-          </div>
         </div>
       </div>
     </footer>

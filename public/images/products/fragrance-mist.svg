@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500">
+    <defs>
+      <linearGradient id="bg-fragrance-mist" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#FAFAFA" />
+    <stop offset="50%" stop-color="#F5F5F5" />
+    <stop offset="100%" stop-color="#EBEBEB" />
+  </linearGradient>
+      <linearGradient id="bottle-fragrance-mist" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#FFF8F0" />
+    <stop offset="15%" stop-color="#FFFFFF" />
+    <stop offset="30%" stop-color="#FFF8F0" />
+    <stop offset="70%" stop-color="#e6dfd7" />
+    <stop offset="100%" stop-color="#ccc5bd" />
+  </linearGradient>
+      <linearGradient id="cap-fragrance-mist" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#885928" />
+    <stop offset="25%" stop-color="#facb9a" />
+    <stop offset="50%" stop-color="#fff2c1" />
+    <stop offset="75%" stop-color="#facb9a" />
+    <stop offset="100%" stop-color="#885928" />
+  </linearGradient>
+      <linearGradient id="reflection-fragrance-mist" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+    <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+    <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+  </linearGradient>
+      <filter id="shadow-fragrance-mist" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.15"/>
+      </filter>
+      <radialGradient id="light-fragrance-mist" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <!-- Background -->
+    <rect width="400" height="500" fill="url(#bg-fragrance-mist)" rx="24"/>
+    
+    <!-- Subtle decorative elements -->
+    <circle cx="80" cy="80" r="40" fill="#D4A574" opacity="0.05"/>
+    <circle cx="340" cy="420" r="50" fill="#D4A574" opacity="0.05"/>
+    
+    <!-- Product with realistic shadow -->
+    <g filter="url(#shadow-fragrance-mist)">
+      
+        <!-- Bottle body with glass effect -->
+        <rect x="160" y="160" width="80" height="180" rx="15" fill="url(#bottle-fragrance-mist)" stroke="#D4A574" stroke-width="0.5"/>
+        <!-- Liquid inside -->
+        <rect x="165" y="230" width="70" height="105" rx="10" fill="#D4A574" opacity="0.2"/>
+        <!-- Spray nozzle -->
+        <rect x="185" y="120" width="30" height="45" rx="5" fill="#8B6914" opacity="0.3"/>
+        <rect x="195" y="100" width="10" height="25" rx="5" fill="#8B6914"/>
+        <!-- Cap with metallic finish -->
+        <rect x="185" y="90" width="30" height="15" rx="5" fill="url(#cap-fragrance-mist)"/>
+        <!-- Label -->
+        <rect x="165" y="200" width="70" height="110" rx="8" fill="#FFFFFF" opacity="0.95"/>
+        <rect x="170" y="210" width="60" height="1" fill="#D4A574" opacity="0.4"/>
+        <rect x="170" y="295" width="60" height="1" fill="#D4A574" opacity="0.4"/>
+        <!-- Glass reflection -->
+        <rect x="165" y="170" width="18" height="160" rx="9" fill="url(#reflection-fragrance-mist)"/>
+      
+    </g>
+    
+    <!-- Professional lighting overlay -->
+    <rect width="400" height="500" fill="url(#light-fragrance-mist)" rx="24"/>
+    
+    <!-- Product details/label text -->
+    
+        <text x="200" y="255" font-family="Georgia,serif" font-size="11" fill="#8B6914" text-anchor="middle" font-weight="600">Rose Petal</text>
+        <text x="200" y="275" font-family="Arial,sans-serif" font-size="9" fill="#D4A574" text-anchor="middle">Beauty_Pro</text>
+      
+    
+    <!-- Subtle brand signature -->
+    <text x="200" y="420" font-family="Georgia,serif" font-size="12" fill="#8B6914" text-anchor="middle" opacity="0.3" font-weight="300">Beauty_Pro</text>
+  </svg>

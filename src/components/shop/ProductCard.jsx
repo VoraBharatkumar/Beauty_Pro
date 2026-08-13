@@ -76,9 +76,16 @@ export default function ProductCard({ product, index = 0 }) {
 
   // Build a category-based fallback image path
   const categoryKey = (data.category || '').toLowerCase().trim().replace(/\s+/g, '-');
+  const categoryFallbacks = {
+    skincare: '/images/products/makeup-eyeshadow.svg',
+    makeup: '/images/products/makeup-eyeshadow.svg',
+    haircare: '/images/products/makeup-eyeshadow.svg',
+    fragrance: '/images/products/makeup-eyeshadow.svg',
+    'body-care': '/images/products/makeup-eyeshadow.svg',
+  };
   const fallbackImages = [
-    `/images/products/${categoryKey}-product.svg`,
-    '/images/products/placeholder.svg'
+    categoryFallbacks[categoryKey] || '/images/products/makeup-eyeshadow.svg',
+    categoryFallbacks[categoryKey] || '/images/products/makeup-eyeshadow.svg'
   ];
 
   // Ensure exactly 2 images with fallbacks
@@ -114,7 +121,7 @@ export default function ProductCard({ product, index = 0 }) {
           src={src}
           alt={alt}
           loading="lazy"
-          className="w-full h-full object-cover"
+          className={`w-full h-full ${isLocalSvg(src) ? 'object-contain' : 'object-cover'}`}
           onError={() => handleImageError(position)}
         />
       );

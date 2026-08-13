@@ -80,6 +80,9 @@ export default function ProductPage({ params }) {
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
 
+  const isSvgImage = (url) => url?.endsWith('.svg') || url?.endsWith('.webp');
+  const imageFitClass = (url) => isSvgImage(url) ? 'object-contain' : 'object-cover';
+
   const handleAddToCart = () => {
     addItem({
       ...product,
@@ -127,7 +130,7 @@ export default function ProductPage({ params }) {
                   src={product.images[selectedImage].url}
                   alt={product.images[selectedImage].alt || product.name}
                   fill
-                  className="object-cover"
+                  className={imageFitClass(product.images[selectedImage].url)}
                   priority
                   quality={80}
                   decoding="async"
@@ -161,7 +164,7 @@ export default function ProductPage({ params }) {
                         alt={img.alt || `${product.name} - Image ${idx + 1}`}
                         fill
                         sizes="(max-width: 640px) 25vw, 25vw"
-                        className="object-cover"
+                        className={imageFitClass(img.url)}
                       />
                     </div>
                   ) : (

@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500">
+    <defs>
+      <linearGradient id="bg-body-care-massage-oil" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#FAFAFA" />
+    <stop offset="50%" stop-color="#F5F5F5" />
+    <stop offset="100%" stop-color="#EBEBEB" />
+  </linearGradient>
+      <linearGradient id="bottle-body-care-massage-oil" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#F8F4F0" />
+    <stop offset="15%" stop-color="#FFFFFF" />
+    <stop offset="30%" stop-color="#F8F4F0" />
+    <stop offset="70%" stop-color="#dfdbd7" />
+    <stop offset="100%" stop-color="#c5c1bd" />
+  </linearGradient>
+      <linearGradient id="cap-body-care-massage-oil" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#785c36" />
+    <stop offset="25%" stop-color="#eacea8" />
+    <stop offset="50%" stop-color="#fff5cf" />
+    <stop offset="75%" stop-color="#eacea8" />
+    <stop offset="100%" stop-color="#785c36" />
+  </linearGradient>
+      <linearGradient id="reflection-body-care-massage-oil" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+    <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+    <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+  </linearGradient>
+      <filter id="shadow-body-care-massage-oil" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.15"/>
+      </filter>
+      <radialGradient id="light-body-care-massage-oil" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <!-- Background -->
+    <rect width="400" height="500" fill="url(#bg-body-care-massage-oil)" rx="24"/>
+    
+    <!-- Subtle decorative elements -->
+    <circle cx="80" cy="80" r="40" fill="#C4A882" opacity="0.05"/>
+    <circle cx="340" cy="420" r="50" fill="#C4A882" opacity="0.05"/>
+    
+    <!-- Product with realistic shadow -->
+    <g filter="url(#shadow-body-care-massage-oil)">
+      
+        <!-- Bottle body with glass effect -->
+        <rect x="140" y="150" width="120" height="200" rx="15" fill="url(#bottle-body-care-massage-oil)" stroke="#C4A882" stroke-width="0.5"/>
+        <!-- Liquid inside -->
+        <rect x="145" y="220" width="110" height="125" rx="10" fill="#C4A882" opacity="0.2"/>
+        <!-- Bottle neck -->
+        <rect x="180" y="120" width="40" height="35" rx="5" fill="url(#bottle-body-care-massage-oil)" stroke="#C4A882" stroke-width="0.5"/>
+        <!-- Cap with metallic finish -->
+        <rect x="175" y="100" width="50" height="25" rx="8" fill="url(#cap-body-care-massage-oil)"/>
+        <!-- Label -->
+        <rect x="150" y="200" width="100" height="120" rx="10" fill="#FFFFFF" opacity="0.95"/>
+        <rect x="155" y="210" width="90" height="1" fill="#C4A882" opacity="0.4"/>
+        <rect x="155" y="305" width="90" height="1" fill="#C4A882" opacity="0.4"/>
+        <!-- Glass reflection -->
+        <rect x="150" y="160" width="25" height="180" rx="12" fill="url(#reflection-body-care-massage-oil)"/>
+      
+    </g>
+    
+    <!-- Professional lighting overlay -->
+    <rect width="400" height="500" fill="url(#light-body-care-massage-oil)" rx="24"/>
+    
+    <!-- Product details/label text -->
+    
+        <text x="200" y="260" font-family="Georgia,serif" font-size="12" fill="#7A6652" text-anchor="middle" font-weight="600">Relaxing Massage</text>
+        <text x="200" y="285" font-family="Arial,sans-serif" font-size="9" fill="#C4A882" text-anchor="middle">Beauty_Pro</text>
+      
+    
+    <!-- Subtle brand signature -->
+    <text x="200" y="420" font-family="Georgia,serif" font-size="12" fill="#7A6652" text-anchor="middle" opacity="0.3" font-weight="300">Beauty_Pro</text>
+  </svg>

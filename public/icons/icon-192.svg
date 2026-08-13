@@ -1,5 +1,58 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="192" height="192" viewBox="0 0 192 192">
-  <rect width="192" height="192" rx="32" fill="#FAF8F6"/>
-  <text x="96" y="110" font-family="Georgia,serif" font-size="72" font-weight="bold" fill="#1B1B1B" text-anchor="middle">L</text>
-  <text x="96" y="140" font-family="Arial,sans-serif" font-size="14" fill="#A87363" text-anchor="middle" letter-spacing="4">BEAUTY</text>
+  <defs>
+    <linearGradient id="petalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E8C4C4"/>
+      <stop offset="50%" stop-color="#D4A0A0"/>
+      <stop offset="100%" stop-color="#C48E8E"/>
+    </linearGradient>
+    <linearGradient id="petalGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#C9A96E"/>
+      <stop offset="100%" stop-color="#B8955A"/>
+    </linearGradient>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDFBF9"/>
+      <stop offset="100%" stop-color="#F5F0EB"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="50%">
+      <stop offset="0%" stop-color="rgba(212,160,160,0.35)"/>
+      <stop offset="100%" stop-color="rgba(212,160,160,0)"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Rounded background -->
+  <rect width="192" height="192" rx="40" fill="url(#bgGrad)"/>
+  <rect width="192" height="192" rx="40" fill="url(#glow)"/>
+
+  <!-- Outer petals (5 petals) -->
+  <g transform="translate(96,96)">
+    <!-- Petal 1 - top -->
+    <path d="M0,-78 C18,-70 26,-48 22,-28 C18,-12 8,-4 0,0 C-8,-4 -18,-12 -22,-28 C-26,-48 -18,-70 0,-78Z" fill="url(#petalGrad)" opacity="0.9"/>
+    <!-- Petal 2 - right -->
+    <path d="M78,0 C70,18 48,26 28,22 C12,18 4,8 0,0 C4,-8 12,-18 28,-22 C48,-26 70,-18 78,0Z" fill="url(#petalGrad)" opacity="0.9" transform="rotate(72)"/>
+    <!-- Petal 3 -->
+    <path d="M0,-78 C18,-70 26,-48 22,-28 C18,-12 8,-4 0,0 C-8,-4 -18,-12 -22,-28 C-26,-48 -18,-70 0,-78Z" fill="url(#petalGrad)" opacity="0.9" transform="rotate(144)"/>
+    <!-- Petal 4 -->
+    <path d="M0,-78 C18,-70 26,-48 22,-28 C18,-12 8,-4 0,0 C-8,-4 -18,-12 -22,-28 C-26,-48 -18,-70 0,-78Z" fill="url(#petalGrad)" opacity="0.9" transform="rotate(216)"/>
+    <!-- Petal 5 -->
+    <path d="M0,-78 C18,-70 26,-48 22,-28 C18,-12 8,-4 0,0 C-8,-4 -18,-12 -22,-28 C-26,-48 -18,-70 0,-78Z" fill="url(#petalGrad)" opacity="0.9" transform="rotate(288)"/>
+
+    <!-- Inner petals (5 petals, gold) -->
+    <path d="M0,-52 C12,-46 18,-32 15,-18 C12,-8 5,-2 0,0 C-5,-2 -12,-8 -15,-18 C-18,-32 -12,-46 0,-52Z" fill="url(#petalGrad2)" transform="rotate(36)"/>
+    <path d="M0,-52 C12,-46 18,-32 15,-18 C12,-8 5,-2 0,0 C-5,-2 -12,-8 -15,-18 C-18,-32 -12,-46 0,-52Z" fill="url(#petalGrad2)" transform="rotate(108)"/>
+    <path d="M0,-52 C12,-46 18,-32 15,-18 C12,-8 5,-2 0,0 C-5,-2 -12,-8 -15,-18 C-18,-32 -12,-46 0,-52Z" fill="url(#petalGrad2)" transform="rotate(180)"/>
+    <path d="M0,-52 C12,-46 18,-32 15,-18 C12,-8 5,-2 0,0 C-5,-2 -12,-8 -15,-18 C-18,-32 -12,-46 0,-52Z" fill="url(#petalGrad2)" transform="rotate(252)"/>
+    <path d="M0,-52 C12,-46 18,-32 15,-18 C12,-8 5,-2 0,0 C-5,-2 -12,-8 -15,-18 C-18,-32 -12,-46 0,-52Z" fill="url(#petalGrad2)" transform="rotate(324)"/>
+
+    <!-- Center -->
+    <circle cx="0" cy="0" r="14" fill="#C9A96E"/>
+    <circle cx="0" cy="0" r="8" fill="#D4A0A0"/>
+    <circle cx="0" cy="0" r="4" fill="#FDFBF9"/>
+  </g>
+
+  <!-- Sparkle accents -->
+  <g fill="#C9A96E" opacity="0.8">
+    <path d="M148,38 L150,44 L156,46 L150,48 L148,54 L146,48 L140,46 L146,44 Z"/>
+    <path d="M42,52 L43.5,56 L48,57.5 L43.5,59 L42,63 L40.5,59 L36,57.5 L40.5,56 Z" opacity="0.6"/>
+    <path d="M152,132 L153.5,136 L158,137.5 L153.5,139 L152,143 L150.5,139 L146,137.5 L150.5,136 Z" opacity="0.5"/>
+  </g>
 </svg>

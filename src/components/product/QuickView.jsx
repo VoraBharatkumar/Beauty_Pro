@@ -39,6 +39,9 @@ export function QuickView() {
   const stockCount = quickViewProduct.stock || 0;
   const deliveryEstimate = inStock ? '3-5 Business Days' : 'Out of Stock';
 
+  const isSvgImage = (url) => url?.endsWith('.svg') || url?.endsWith('.webp');
+  const imageFitClass = (url) => isSvgImage(url) ? 'object-contain' : 'object-cover';
+
   const handleAddToCart = () => {
     addItem({
       ...quickViewProduct,
@@ -130,7 +133,7 @@ export function QuickView() {
                     <img
                       src={images[currentImageIndex]?.url || images[0]?.url}
                       alt={images[currentImageIndex]?.alt || quickViewProduct.name}
-                      className="w-full h-full object-cover transition-all duration-300"
+                      className={`w-full h-full ${imageFitClass(images[currentImageIndex]?.url || images[0]?.url)} transition-all duration-300`}
                       loading="eager"
                     />
                     {images.length > 1 && (
