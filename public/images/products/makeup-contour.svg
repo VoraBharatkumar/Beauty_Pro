@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500">
+    <defs>
+      <linearGradient id="bg-makeup-contour" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#FAFAFA" />
+    <stop offset="50%" stop-color="#F5F5F5" />
+    <stop offset="100%" stop-color="#EBEBEB" />
+  </linearGradient>
+      <linearGradient id="bottle-makeup-contour" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#FFFFFF" />
+    <stop offset="15%" stop-color="#FFFFFF" />
+    <stop offset="30%" stop-color="#FFFFFF" />
+    <stop offset="70%" stop-color="#e6e6e6" />
+    <stop offset="100%" stop-color="#cccccc" />
+  </linearGradient>
+      <linearGradient id="cap-makeup-contour" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#885959" />
+    <stop offset="25%" stop-color="#facbcb" />
+    <stop offset="50%" stop-color="#fff2f2" />
+    <stop offset="75%" stop-color="#facbcb" />
+    <stop offset="100%" stop-color="#885959" />
+  </linearGradient>
+      <linearGradient id="reflection-makeup-contour" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+    <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+    <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+  </linearGradient>
+      <filter id="shadow-makeup-contour" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.15"/>
+      </filter>
+      <radialGradient id="light-makeup-contour" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <!-- Background -->
+    <rect width="400" height="500" fill="url(#bg-makeup-contour)" rx="24"/>
+    
+    <!-- Subtle decorative elements -->
+    <circle cx="80" cy="80" r="40" fill="#D4A5A5" opacity="0.05"/>
+    <circle cx="340" cy="420" r="50" fill="#D4A5A5" opacity="0.05"/>
+    
+    <!-- Product with realistic shadow -->
+    <g filter="url(#shadow-makeup-contour)">
+      
+        <!-- Contour stick with premium finish -->
+        <rect x="180" y="160" width="40" height="150" rx="20" fill="url(#bottle-makeup-contour)" stroke="#D4A5A5" stroke-width="0.5"/>
+        <!-- Product tip with gradient -->
+        <path d="M185 160 L200 120 L215 160 Z" fill="#D4A5A5"/>
+        <path d="M190 160 L200 135 L210 160 Z" fill="#ffd8d8" opacity="0.5"/>
+        <!-- Cap bottom -->
+        <rect x="180" y="290" width="40" height="15" rx="5" fill="#8B6F6F" opacity="0.2"/>
+        <!-- Stick highlight -->
+        <rect x="183" y="165" width="8" height="140" rx="4" fill="url(#reflection-makeup-contour)"/>
+      
+    </g>
+    
+    <!-- Professional lighting overlay -->
+    <rect width="400" height="500" fill="url(#light-makeup-contour)" rx="24"/>
+    
+    <!-- Product details/label text -->
+    
+        <text x="200" y="240" font-family="Georgia,serif" font-size="12" fill="#8B6F6F" text-anchor="middle" font-weight="600">Contour Stick</text>
+        <text x="200" y="260" font-family="Arial,sans-serif" font-size="9" fill="#D4A5A5" text-anchor="middle">Beauty_Pro</text>
+      
+    
+    <!-- Subtle brand signature -->
+    <text x="200" y="420" font-family="Georgia,serif" font-size="12" fill="#8B6F6F" text-anchor="middle" opacity="0.3" font-weight="300">Beauty_Pro</text>
+  </svg>

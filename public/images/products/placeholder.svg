@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500" fill="none">
+  <rect width="400" height="500" fill="#F5F0EB" rx="20"/>
+  <rect x="145" y="160" width="110" height="180" rx="20" fill="#D9B29C" opacity="0.5"/>
+  <rect x="160" y="85" width="80" height="40" rx="10" fill="#C49A82" opacity="0.5"/>
+  <text x="200" y="260" font-family="Georgia,serif" font-size="16" fill="#8B7355" text-anchor="middle" opacity="0.4">Beauty_Pro</text>
+  <text x="200" y="285" font-family="Arial,sans-serif" font-size="10" fill="#C49A82" text-anchor="middle" opacity="0.3" letter-spacing="2">PREMIUM</text>
+</svg>

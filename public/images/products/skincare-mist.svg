@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500">
+    <defs>
+      <linearGradient id="bg-skincare-mist" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#FAFAFA" />
+    <stop offset="50%" stop-color="#F5F5F5" />
+    <stop offset="100%" stop-color="#EBEBEB" />
+  </linearGradient>
+      <linearGradient id="bottle-skincare-mist" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#F5F0EB" />
+    <stop offset="15%" stop-color="#FFFFFF" />
+    <stop offset="30%" stop-color="#F5F0EB" />
+    <stop offset="70%" stop-color="#dcd7d2" />
+    <stop offset="100%" stop-color="#c2bdb8" />
+  </linearGradient>
+      <linearGradient id="cap-skincare-mist" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#7d5c30" />
+    <stop offset="25%" stop-color="#efcea2" />
+    <stop offset="50%" stop-color="#fff5c9" />
+    <stop offset="75%" stop-color="#efcea2" />
+    <stop offset="100%" stop-color="#7d5c30" />
+  </linearGradient>
+      <linearGradient id="reflection-skincare-mist" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+    <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+    <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+  </linearGradient>
+      <filter id="shadow-skincare-mist" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.15"/>
+      </filter>
+      <radialGradient id="light-skincare-mist" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <!-- Background -->
+    <rect width="400" height="500" fill="url(#bg-skincare-mist)" rx="24"/>
+    
+    <!-- Subtle decorative elements -->
+    <circle cx="80" cy="80" r="40" fill="#C9A87C" opacity="0.05"/>
+    <circle cx="340" cy="420" r="50" fill="#C9A87C" opacity="0.05"/>
+    
+    <!-- Product with realistic shadow -->
+    <g filter="url(#shadow-skincare-mist)">
+      
+        <!-- Bottle body with glass effect -->
+        <rect x="145" y="160" width="110" height="180" rx="20" fill="url(#bottle-skincare-mist)" stroke="#C9A87C" stroke-width="0.5"/>
+        <!-- Liquid inside -->
+        <rect x="150" y="220" width="100" height="115" rx="15" fill="#C9A87C" opacity="0.2"/>
+        <!-- Bottle neck -->
+        <rect x="175" y="130" width="50" height="40" rx="5" fill="url(#bottle-skincare-mist)" stroke="#C9A87C" stroke-width="0.5"/>
+        <!-- Dropper -->
+        <rect x="195" y="90" width="10" height="50" rx="5" fill="#8B7355" opacity="0.4"/>
+        <circle cx="200" cy="85" r="8" fill="#8B7355" opacity="0.5"/>
+        <!-- Cap with metallic finish -->
+        <rect x="180" y="110" width="40" height="25" rx="8" fill="url(#cap-skincare-mist)"/>
+        <!-- Label -->
+        <rect x="155" y="200" width="90" height="100" rx="10" fill="#FFFFFF" opacity="0.95"/>
+        <rect x="160" y="210" width="80" height="1" fill="#C9A87C" opacity="0.4"/>
+        <rect x="160" y="285" width="80" height="1" fill="#C9A87C" opacity="0.4"/>
+        <!-- Glass reflection -->
+        <rect x="150" y="170" width="20" height="160" rx="10" fill="url(#reflection-skincare-mist)"/>
+      
+    </g>
+    
+    <!-- Professional lighting overlay -->
+    <rect width="400" height="500" fill="url(#light-skincare-mist)" rx="24"/>
+    
+    <!-- Product details/label text -->
+    
+        <text x="200" y="255" font-family="Georgia,serif" font-size="12" fill="#8B7355" text-anchor="middle" font-weight="600">Midnight Recovery</text>
+        <text x="200" y="275" font-family="Arial,sans-serif" font-size="9" fill="#C9A87C" text-anchor="middle">Beauty_Pro</text>
+      
+    
+    <!-- Subtle brand signature -->
+    <text x="200" y="420" font-family="Georgia,serif" font-size="12" fill="#8B7355" text-anchor="middle" opacity="0.3" font-weight="300">Beauty_Pro</text>
+  </svg>

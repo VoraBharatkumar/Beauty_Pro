@@ -1,0 +1,72 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="500" viewBox="0 0 400 500">
+    <defs>
+      <linearGradient id="bg-skincare-moisturizer" x1="0%" y1="0%" x2="0%" y2="100%">
+    <stop offset="0%" stop-color="#FAFAFA" />
+    <stop offset="50%" stop-color="#F5F5F5" />
+    <stop offset="100%" stop-color="#EBEBEB" />
+  </linearGradient>
+      <linearGradient id="bottle-skincare-moisturizer" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#F5F0EB" />
+    <stop offset="15%" stop-color="#FFFFFF" />
+    <stop offset="30%" stop-color="#F5F0EB" />
+    <stop offset="70%" stop-color="#dcd7d2" />
+    <stop offset="100%" stop-color="#c2bdb8" />
+  </linearGradient>
+      <linearGradient id="cap-skincare-moisturizer" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#7d5c30" />
+    <stop offset="25%" stop-color="#efcea2" />
+    <stop offset="50%" stop-color="#fff5c9" />
+    <stop offset="75%" stop-color="#efcea2" />
+    <stop offset="100%" stop-color="#7d5c30" />
+  </linearGradient>
+      <linearGradient id="reflection-skincare-moisturizer" x1="0%" y1="0%" x2="100%" y2="0%">
+    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0"/>
+    <stop offset="40%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+    <stop offset="60%" stop-color="#FFFFFF" stop-opacity="0.3"/>
+    <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+  </linearGradient>
+      <filter id="shadow-skincare-moisturizer" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.15"/>
+      </filter>
+      <radialGradient id="light-skincare-moisturizer" cx="30%" cy="30%" r="70%">
+        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <!-- Background -->
+    <rect width="400" height="500" fill="url(#bg-skincare-moisturizer)" rx="24"/>
+    
+    <!-- Subtle decorative elements -->
+    <circle cx="80" cy="80" r="40" fill="#C9A87C" opacity="0.05"/>
+    <circle cx="340" cy="420" r="50" fill="#C9A87C" opacity="0.05"/>
+    
+    <!-- Product with realistic shadow -->
+    <g filter="url(#shadow-skincare-moisturizer)">
+      
+        <!-- Jar body with glass effect -->
+        <rect x="135" y="170" width="130" height="140" rx="15" fill="url(#bottle-skincare-moisturizer)" stroke="#C9A87C" stroke-width="0.5"/>
+        <!-- Product inside visible through glass -->
+        <rect x="140" y="200" width="120" height="105" rx="10" fill="#C9A87C" opacity="0.25"/>
+        <!-- Jar lid with metallic finish -->
+        <rect x="140" y="140" width="120" height="35" rx="10" fill="url(#cap-skincare-moisturizer)"/>
+        <!-- Label -->
+        <rect x="145" y="195" width="110" height="90" rx="8" fill="#FFFFFF" opacity="0.95"/>
+        <rect x="150" y="205" width="100" height="1" fill="#C9A87C" opacity="0.4"/>
+        <rect x="150" y="270" width="100" height="1" fill="#C9A87C" opacity="0.4"/>
+        <!-- Glass reflection -->
+        <rect x="145" y="180" width="25" height="120" rx="12" fill="url(#reflection-skincare-moisturizer)"/>
+      
+    </g>
+    
+    <!-- Professional lighting overlay -->
+    <rect width="400" height="500" fill="url(#light-skincare-moisturizer)" rx="24"/>
+    
+    <!-- Product details/label text -->
+    
+        <text x="200" y="245" font-family="Georgia,serif" font-size="12" fill="#8B7355" text-anchor="middle" font-weight="600">Hydra Boost</text>
+        <text x="200" y="265" font-family="Arial,sans-serif" font-size="9" fill="#C9A87C" text-anchor="middle">Beauty_Pro</text>
+      
+    
+    <!-- Subtle brand signature -->
+    <text x="200" y="420" font-family="Georgia,serif" font-size="12" fill="#8B7355" text-anchor="middle" opacity="0.3" font-weight="300">Beauty_Pro</text>
+  </svg>

@@ -74,16 +74,16 @@ export default function ProductCard({ product, index = 0 }) {
     allImages.unshift(data.image);
   }
 
-  // Build a category-based fallback image path
-  const categoryKey = (data.category || '').toLowerCase().trim().replace(/\s+/g, '-');
+  // Build a slug-based fallback image path matching the generated SVG filenames
+  const slugKey = (data.slug || data._id || '').toLowerCase().trim().replace(/\s+/g, '-');
   const fallbackImages = [
-    `/images/products/${categoryKey}-product.svg`,
+    `/images/products/${slugKey}.svg`,
     '/images/products/placeholder.svg'
   ];
 
   // Ensure exactly 2 images with fallbacks
   const primaryImage = allImages[0] || fallbackImages[0];
-  const secondaryImage = allImages[1] || primaryImage;
+  const secondaryImage = allImages[1] || fallbackImages[1] || primaryImage;
   const validImages = [primaryImage, secondaryImage];
 
   const isExternal = (url) => url.startsWith('http');
