@@ -1,10 +1,11 @@
 /**
  * Beauty_Pro - Product Card Component
  * Fully Responsive with mobile-optimized interactions
+ * Shows up to 2 images per product with hover swap
  */
 
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { motion } from 'framer-motion';
@@ -14,6 +15,7 @@ import { formatPrice } from '@/lib/utils';
 
 export default function ProductCard({ product, index = 0 }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [imageError, setImageError] = useState({ primary: false, secondary: false });
   const openQuickView = useUIStore((state) => state.openQuickView);
   const addItem = useCartStore((state) => state.addItem);
   const wishlistItems = useWishlistStore((state) => state.items);
@@ -44,6 +46,7 @@ export default function ProductCard({ product, index = 0 }) {
       ...data,
       variant: data.variants?.[0] || '',
       quantity: 1,
+      image: data.images?.[0]?.url || data.image || null,
     });
   };
 
@@ -53,10 +56,84 @@ export default function ProductCard({ product, index = 0 }) {
   };
 
   const productSlug = data.slug || data._id;
-  const imageUrl = data.image || data.images?.[0]?.url;
+
+  // Collect up to 2 image URLs from all possible sources
+  const allImages = [];
   
-  // Ensure we have a valid image URL with fallback
-  const validImageUrl = imageUrl && imageUrl.trim() !== '' ? imageUrl : '/images/products/placeholder.svg';
+  // From images array (limit to 2)
+  if (Array.isArray(data.images) && data.images.length > 0) {
+    data.images.slice(0, 2).forEach((img) => {
+      if (img && img.url && img.url.trim() !== '') {
+        allImages.push(img.url);
+      }
+    });
+  }
+  
+  // From legacy image field
+  if (data.image && data.image.trim() !== '' && !allImages.includes(data.image)) {
+    allImages.unshift(data.image);
+  }
+
+  // Build a category-based fallback image path
+  const categoryKey = (data.category || '').toLowerCase().trim().replace(/\s+/g, '-');
+  const fallbackImages = [
+    `/images/products/${categoryKey}-product.svg`,
+    '/images/products/placeholder.svg'
+  ];
+
+  // Ensure exactly 2 images with fallbacks
+  const primaryImage = allImages[0] || fallbackImages[0];
+  const secondaryImage = allImages[1] || primaryImage;
+  const validImages = [primaryImage, secondaryImage];
+
+  const isExternal = (url) => url.startsWith('http');
+  const isLocalSvg = (url) => url.endsWith('.svg') || url.endsWith('.webp');
+
+  // Reset image error when product or image changes
+  useEffect(() => {
+    setImageError({ primary: false, secondary: false });
+  }, [data._id, primaryImage, secondaryImage]);
+
+  const handleImageError = (position) => {
+    setImageError((prev) => ({ ...prev, [position]: true }));
+  };
+
+  // Render image based on type
+  const renderImage = (src, alt, position) => {
+    if (imageError[position]) {
+      return (
+        <div className="w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-luna-peach to-luna-rose-gold">
+          ✨
+        </div>
+      );
+    }
+
+    if (isExternal(src) || isLocalSvg(src)) {
+      return (
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          className="w-full h-full object-cover"
+          onError={() => handleImageError(position)}
+        />
+      );
+    }
+
+    return (
+      <Image
+        src={src}
+        alt={alt}
+        fill
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
+        className="object-cover"
+        loading="lazy"
+        decoding="async"
+        quality={75}
+        onError={() => handleImageError(position)}
+      />
+    );
+  };
 
   return (
     <motion.div
@@ -70,29 +147,21 @@ export default function ProductCard({ product, index = 0 }) {
     >
       <Link href={`/product/${productSlug}`} className="block">
         <div className="relative aspect-[3/4] bg-luna-beige rounded-2xl md:rounded-3xl overflow-hidden mb-3 md:mb-4">
-          {validImageUrl ? (
-            <Image
-              src={validImageUrl}
-              alt={data.name}
-              fill
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-110"
-              loading={index < 8 ? 'eager' : 'lazy'}
-              quality={85}
-              onError={(e) => {
-                console.error('Image load error:', validImageUrl);
-                e.target.style.display = 'none';
-              }}
-            />
-          ) : (
-            <div className="w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-luna-peach to-luna-rose-gold">
-              ✨
+          {/* Primary Image - always visible */}
+          <div className={`absolute inset-0 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
+            {renderImage(validImages[0], data.name, 'primary')}
+          </div>
+
+          {/* Secondary Image - shows on hover */}
+          {validImages[1] && validImages[1] !== validImages[0] && (
+            <div className={`absolute inset-0 transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
+              {renderImage(validImages[1], `${data.name} - View 2`, 'secondary')}
             </div>
           )}
 
           {/* Badge */}
           {(data.badge || discount > 0) && (
-            <span className="absolute top-2 left-2 md:top-3 md:left-3 px-2 md:px-3 py-0.5 md:py-1 bg-luna-rose-gold text-white text-[10px] md:text-xs font-medium rounded-full">
+            <span className="absolute top-2 left-2 md:top-3 md:left-3 px-2 md:px-3 py-0.5 md:py-1 bg-luna-rose-gold text-white text-[10px] md:text-xs font-medium rounded-full z-10">
               {data.badge || `-${discount}%`}
             </span>
           )}
@@ -119,7 +188,7 @@ export default function ProductCard({ product, index = 0 }) {
               e.preventDefault();
               addToWishlist(data);
             }}
-            className="absolute top-2 right-2 md:top-3 md:right-3 w-8 h-8 md:w-10 md:h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 hover:bg-white shadow-md"
+            className="absolute top-2 right-2 md:top-3 md:right-3 w-8 h-8 md:w-10 md:h-10 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 hover:bg-white shadow-md z-10"
             aria-label="Add to wishlist"
           >
             <svg
@@ -135,6 +204,14 @@ export default function ProductCard({ product, index = 0 }) {
               />
             </svg>
           </motion.button>
+
+          {/* Image counter dots */}
+          {validImages[1] && validImages[1] !== validImages[0] && (
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+              <span className={`w-1.5 h-1.5 rounded-full transition-colors ${isHovered ? 'bg-white/40' : 'bg-white'}`} />
+              <span className={`w-1.5 h-1.5 rounded-full transition-colors ${isHovered ? 'bg-white' : 'bg-white/40'}`} />
+            </div>
+          )}
         </div>
 
         <div className="px-0.5">
@@ -188,4 +265,3 @@ export default function ProductCard({ product, index = 0 }) {
     </motion.div>
   );
 }
-

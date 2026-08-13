@@ -3,16 +3,21 @@ import { useEffect, useState, useCallback } from 'react';
 import ProductCard from '@/components/shop/ProductCard';
 import Button from '@/components/ui/Button';
 
+// Scroll to top function
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
+
 export default function ShopPage() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedCategory, setSelectedCategory] = useState('skincare');
   const [error, setError] = useState(null);
 
   const loadProducts = useCallback(async () => {
     try {
       setError(null);
-      const url = selectedCategory === 'all' ? '/api/products' : `/api/products?category=${selectedCategory}`;
+      const url = `/api/products?category=${selectedCategory}`;
       const res = await fetch(url);
       if (!res.ok) {
         throw new Error(`Request failed with status ${res.status}`);
@@ -33,8 +38,12 @@ export default function ShopPage() {
     loadProducts();
   }, [loadProducts]);
 
+  // Scroll to top when category changes
+  useEffect(() => {
+    scrollToTop();
+  }, [selectedCategory]);
+
   const categories = [
-    { id: 'all', name: 'All Products', icon: '✨' },
     { id: 'skincare', name: 'Skincare', icon: '💎' },
     { id: 'makeup', name: 'Makeup', icon: '💄' },
     { id: 'haircare', name: 'Haircare', icon: '🌿' },
@@ -116,8 +125,8 @@ export default function ShopPage() {
             <div className="text-6xl mb-4">😢</div>
             <h3 className="font-serif text-2xl text-beauty-dark mb-2">No products found</h3>
             <p className="text-beauty-coffee/70 mb-6">Try selecting a different category</p>
-            <Button variant="primary" onClick={() => setSelectedCategory('all')}>
-              View All Products
+            <Button variant="primary" onClick={() => setSelectedCategory('skincare')}>
+              View Skincare
             </Button>
           </div>
         )}

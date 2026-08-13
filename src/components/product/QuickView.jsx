@@ -14,7 +14,6 @@ import Button from '@/components/ui/Button';
 import { triggerLoginRequired } from '@/components/auth/LoginRequiredModal';
 import { XMarkIcon, HeartIcon as HeartOutline, ChevronLeftIcon, ChevronRightIcon } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
-import Image from 'next/image';
 
 export function QuickView() {
   const router = useRouter();
@@ -128,12 +127,11 @@ export function QuickView() {
               <div className="relative aspect-square bg-luna-beige/30">
                 {images.length > 0 ? (
                   <>
-                    <Image
+                    <img
                       src={images[currentImageIndex]?.url || images[0]?.url}
                       alt={images[currentImageIndex]?.alt || quickViewProduct.name}
-                      fill
-                      className="object-cover transition-all duration-300"
-                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="w-full h-full object-cover transition-all duration-300"
+                      loading="eager"
                     />
                     {images.length > 1 && (
                       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">

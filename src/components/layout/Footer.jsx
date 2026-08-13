@@ -6,7 +6,6 @@ const footerLinks = {
   shop: {
     title: 'Shop',
     links: [
-      { title: 'All Products', href: '/shop' },
       { title: 'Skincare', href: '/shop?category=skincare' },
       { title: 'Makeup', href: '/shop?category=makeup' },
       { title: 'Haircare', href: '/shop?category=haircare' },
@@ -19,7 +18,6 @@ const footerLinks = {
       { title: 'About Us', href: '/about' },
       { title: 'Contact', href: '/contact' },
       { title: 'FAQ', href: '/faq' },
-      { title: 'Careers', href: '/careers' },
     ],
   },
   support: {

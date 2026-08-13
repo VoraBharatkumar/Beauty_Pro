@@ -66,7 +66,7 @@ export function CartDrawer() {
                     >
                       <div className="relative w-16 h-16 md:w-20 md:h-20 rounded-xl overflow-hidden bg-luna-beige flex-shrink-0">
                         {item.image ? (
-                          <Image src={item.image} alt={item.name} fill className="object-cover" sizes="80px" />
+                          <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center text-lg">✨</div>
                         )}

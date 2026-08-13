@@ -128,6 +128,9 @@ export default function ProductPage({ params }) {
                   alt={product.images[selectedImage].alt || product.name}
                   fill
                   className="object-cover"
+                  priority
+                  quality={80}
+                  decoding="async"
                 />
               ) : (
                 <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-luna-peach to-luna-rose-gold">

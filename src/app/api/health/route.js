@@ -4,9 +4,9 @@ export async function GET() {
   try {
     const mod = await import('@/lib/db');
     await mod.connectDB();
-    return Response.json({ success: true, database: 'connected', connection: process.env.MONGODB_URI || 'mongodb://localhost:27017/luna-beauty' });
+    return Response.json({ success: true, database: 'connected', connection: 'mongodb+srv://vorab.82mgrjm.mongodb.net/?appName=Vorab' });
   } catch (error) {
-    return Response.json({ success: false, database: 'disconnected', error: error.message, connection: process.env.MONGODB_URI || 'mongodb://localhost:27017/luna-beauty' }, { status: 500 });
+    return Response.json({ success: false, database: 'disconnected', error: error.message, connection: 'mongodb+srv://vorab.82mgrjm.mongodb.net/?appName=Vorab' }, { status: 500 });
   }
 }
 

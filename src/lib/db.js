@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/luna-beauty';
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://bharatvora071:Vora%402003@vorab.82mgrjm.mongodb.net/?appName=Vorab';
 const DB_NAME = 'luna-beauty';
 
 let cached = global.mongoose;

@@ -41,8 +41,24 @@ export default function HomePage() {
 
   return (
     <div className="w-full">
-      {/* Hero Section */}
+      {/* Hero Section with Video */}
       <section className="relative min-h-[90vh] md:min-h-[100vh] flex items-center justify-center overflow-hidden bg-gradient-to-b from-beauty-cream via-beauty-light to-beauty-beige">
+        {/* Video Background */}
+        <div className="absolute inset-0 w-full h-full">
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+            poster="/images/products/placeholder.svg"
+          >
+            <source src="/videos/homepage.mp4" type="video/mp4" />
+          </video>
+          {/* Video Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-b from-beauty-cream/5 via-beauty-light/2.5 to-beauty-beige/5" />
+        </div>
+
         {/* Background Glow */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-0 left-0 w-full h-full opacity-40">
@@ -64,7 +80,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: 0.2, duration: 0.8 }}
-                className="inline-block px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-beauty-rose-gold/20"
+                className="inline-block px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full border border-beauty-rose-gold/20 mt-10 md:mt-16"
               >
                 <span className="text-xs md:text-sm font-medium tracking-[0.2em] uppercase text-beauty-coffee">
                   Premium Beauty Collection
@@ -105,23 +121,6 @@ export default function HomePage() {
               </motion.div>
             </motion.div>
 
-            {/* Hero Image */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.4, duration: 1 }}
-              className="relative hidden lg:block"
-            >
-              <div className="relative aspect-square max-w-lg mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-br from-beauty-peach/40 via-beauty-rose-gold/30 to-beauty-gold/40 rounded-full blur-2xl" />
-                <div className="relative w-full h-full flex items-center justify-center">
-                  <div className="w-full h-full bg-gradient-to-br from-beauty-peach via-beauty-rose-gold to-beauty-gold rounded-full opacity-90 shadow-2xl" />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <span className="font-serif text-8xl text-white/90">L</span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
           </div>
         </div>
       </section>
@@ -187,9 +186,7 @@ export default function HomePage() {
               className="relative"
             >
               <div className="aspect-square bg-gradient-to-br from-beauty-peach to-beauty-rose-gold rounded-3xl overflow-hidden luxury-shadow-lg">
-                <div className="w-full h-full flex items-center justify-center">
-                  <span className="font-serif text-9xl text-white/20">L</span>
-                </div>
+                <img src="/images/home/home.jpg" alt="Beauty Pro" className="w-full h-full object-cover" />
               </div>
             </motion.div>
 
@@ -270,42 +267,113 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Collection Banner */}
-      <section className="py-20 md:py-28 bg-beauty-dark">
+      {/* Horizontal Video Section */}
+      <section className="py-16 md:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-            {[
-              { title: 'Rose Gold Glow', subtitle: 'Skincare Essentials', href: '/shop?category=skincare', gradient: 'from-beauty-rose-gold/80 to-beauty-brown/80' },
-              { title: 'Velvet Lips', subtitle: 'Matte Collection', href: '/shop?category=makeup', gradient: 'from-beauty-brown/80 to-beauty-dark/80' },
-            ].map((collection, index) => (
-              <motion.div
-                key={collection.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="flex flex-row gap-6 md:gap-10 items-center justify-center"
+          >
+            {/* Video 1 */}
+            <motion.div
+              animate={{ 
+                y: [0, -8, 0],
+                rotate: [0, 3, -3, 0]
+              }}
+              transition={{ 
+                duration: 4, 
+                repeat: Infinity, 
+                ease: "easeInOut" 
+              }}
+              className="relative w-40 h-40 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden luxury-shadow-lg"
+            >
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
               >
-                <Link
-                  href={collection.href}
-                  className="group block relative aspect-[4/5] rounded-2xl md:rounded-3xl overflow-hidden"
-                >
-                  <div className={`absolute inset-0 bg-gradient-to-br ${collection.gradient} transition-transform duration-700 group-hover:scale-105`} />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors duration-500" />
-                  <div className="absolute inset-0 flex flex-col justify-end p-6 md:p-8 lg:p-10">
-                    <p className="text-white/80 tracking-[0.2em] text-xs md:text-sm uppercase mb-2 md:mb-3">
-                      {collection.subtitle}
-                    </p>
-                    <h3 className="font-serif text-2xl md:text-3xl lg:text-4xl text-white mb-4 md:mb-6">
-                      {collection.title}
-                    </h3>
-                    <Button variant="outline-white" size="md" magnetic>
-                      Shop Now
-                    </Button>
-                  </div>
-                </Link>
-              </motion.div>
-            ))}
-          </div>
+                <source src="/videos/homecontext/vid1.mp4" type="video/mp4" />
+              </video>
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                  opacity: [0.4, 0.6, 0.4]
+                }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+                className="absolute inset-0 rounded-full ring-4 ring-beauty-rose-gold/50"
+              />
+            </motion.div>
+
+            {/* Video 2 */}
+            <motion.div
+              animate={{ 
+                y: [0, -8, 0],
+                rotate: [0, -3, 3, 0]
+              }}
+              transition={{ 
+                duration: 4, 
+                repeat: Infinity, 
+                ease: "easeInOut",
+                delay: 0.5 
+              }}
+              className="relative w-40 h-40 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden luxury-shadow-lg"
+            >
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source src="/videos/homecontext/vid2.mp4" type="video/mp4" />
+              </video>
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                  opacity: [0.4, 0.6, 0.4]
+                }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="absolute inset-0 rounded-full ring-4 ring-beauty-gold/50"
+              />
+            </motion.div>
+
+            {/* Video 3 */}
+            <motion.div
+              animate={{ 
+                y: [0, -8, 0],
+                rotate: [0, 3, -3, 0]
+              }}
+              transition={{ 
+                duration: 4, 
+                repeat: Infinity, 
+                ease: "easeInOut",
+                delay: 1 
+              }}
+              className="relative w-40 h-40 md:w-52 md:h-52 lg:w-64 lg:h-64 rounded-full overflow-hidden luxury-shadow-lg"
+            >
+              <video
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="absolute inset-0 w-full h-full object-cover"
+              >
+                <source src="/videos/homecontext/vid3.mp4" type="video/mp4" />
+              </video>
+              <motion.div
+                animate={{ 
+                  scale: [1, 1.1, 1],
+                  opacity: [0.4, 0.6, 0.4]
+                }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute inset-0 rounded-full ring-4 ring-beauty-rose-gold/50"
+              />
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 
@@ -361,7 +429,7 @@ export default function HomePage() {
             className="text-center mb-12 md:mb-16"
           >
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-beauty-dark mb-4">
-              Follow Us @LunaBeauty
+              Follow Us @beauty_pro
             </h2>
             <div className="w-20 h-1 bg-gradient-to-r from-transparent via-beauty-rose-gold to-transparent mx-auto" />
           </motion.div>

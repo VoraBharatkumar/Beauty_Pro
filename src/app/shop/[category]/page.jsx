@@ -18,7 +18,7 @@ export default function CategoryPage({ params }) {
   const loadProducts = useCallback(async () => {
     setLoading(true);
     try {
-      const categoryParam = currentCategory === 'all' ? '' : `&category=${currentCategory}`;
+      const categoryParam = `&category=${currentCategory}`;
       const sortParam = sortBy === 'featured' ? '' : `&sort=${sortBy}`;
       const res = await fetch(`/api/products?${categoryParam}${sortParam}`);
       const data = await res.json();
