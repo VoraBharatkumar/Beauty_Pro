@@ -11,11 +11,13 @@ import Button from '@/components/ui/Button';
 import ProductCard from '@/components/shop/ProductCard';
 
 // Best seller products for demo
+const ALL_PRODUCT_IMAGE = '/images/products/makeup-eyeshadow.svg';
+
 const bestSellerProducts = [
-  { _id: 'demo-1', name: 'Rose Gold Radiance Serum', category: 'Skincare', price: 3499, originalPrice: 4999, badge: 'Best Seller', rating: 4.8, reviewCount: 124, variants: ['30ml', '50ml'], images: [{ url: '/images/products/skincare-serum.svg', alt: 'Rose Gold Radiance Serum', isPrimary: true }], description: '24k gold serum for radiant skin.' },
-  { _id: 'demo-4', name: 'Diamond Radiance Cream', category: 'Skincare', price: 4999, originalPrice: 5999, badge: 'Exclusive', rating: 4.9, reviewCount: 210, variants: ['50ml'], images: [{ url: '/images/products/skincare-cream.svg', alt: 'Diamond Radiance Cream', isPrimary: true }], description: 'Diamond-infused luxury moisturizer.' },
-  { _id: 'demo-19', name: 'Rose Petal Mist', category: 'Fragrance', price: 1299, originalPrice: 1499, rating: 4.5, reviewCount: 34, variants: ['100ml', '150ml'], images: [{ url: '/images/products/fragrance-mist.svg', alt: 'Rose Petal Mist', isPrimary: true }], description: 'Instant hydration with rose water.' },
-  { _id: 'demo-25', name: 'Luxe Body Lotion', category: 'Body Care', price: 1799, originalPrice: 2199, badge: 'Sale', rating: 4.4, reviewCount: 67, variants: ['200ml', '400ml'], images: [{ url: '/images/products/body-care-lotion.svg', alt: 'Luxe Body Lotion', isPrimary: true }], description: 'Soft, smooth skin with shea butter.' },
+  { _id: 'demo-1', name: 'Rose Gold Radiance Serum', category: 'Skincare', price: 3499, originalPrice: 4999, badge: 'Best Seller', rating: 4.8, reviewCount: 124, variants: ['30ml', '50ml'], images: [{ url: ALL_PRODUCT_IMAGE, alt: 'Rose Gold Radiance Serum', isPrimary: true }], description: '24k gold serum for radiant skin.' },
+  { _id: 'demo-4', name: 'Diamond Radiance Cream', category: 'Skincare', price: 4999, originalPrice: 5999, badge: 'Exclusive', rating: 4.9, reviewCount: 210, variants: ['50ml'], images: [{ url: ALL_PRODUCT_IMAGE, alt: 'Diamond Radiance Cream', isPrimary: true }], description: 'Diamond-infused luxury moisturizer.' },
+  { _id: 'demo-19', name: 'Rose Petal Mist', category: 'Fragrance', price: 1299, originalPrice: 1499, rating: 4.5, reviewCount: 34, variants: ['100ml', '150ml'], images: [{ url: ALL_PRODUCT_IMAGE, alt: 'Rose Petal Mist', isPrimary: true }], description: 'Instant hydration with rose water.' },
+  { _id: 'demo-25', name: 'Luxe Body Lotion', category: 'Body Care', price: 1799, originalPrice: 2199, badge: 'Sale', rating: 4.4, reviewCount: 67, variants: ['200ml', '400ml'], images: [{ url: ALL_PRODUCT_IMAGE, alt: 'Luxe Body Lotion', isPrimary: true }], description: 'Soft, smooth skin with shea butter.' },
 ];
 
 export default function HomePage() {

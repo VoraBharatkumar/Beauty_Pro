@@ -70,89 +70,6 @@ const productImageMap = {
   'demo-bc-10': '/images/products/body-care-massage-oil.svg',
 };
 
-const LOCAL_IMAGE_POOLS = {
-  'demo-sk': [
-    'skincare-serum.svg',
-    'skincare-cream.svg',
-    'skincare-mist.svg',
-    'skincare-cleanser.svg',
-    'skincare-moisturizer.svg',
-    'skincare-sunscreen.svg',
-    'skincare-vitamin-c.svg',
-    'skincare-toner.svg',
-    'skincare-eye-cream.svg',
-    'skincare-face-wash.svg',
-    'skincare-night-cream.svg',
-    'skincare-mask.svg',
-  ],
-
-  'demo-mk': [
-    'makeup-lipstick.svg',
-    'makeup-foundation.svg',
-    'makeup-eyeshadow.svg',
-    'makeup-blush.svg',
-    'makeup-mascara.svg',
-    'makeup-highlighter.svg',
-    'makeup-primer.svg',
-    'makeup-concealer.svg',
-    'makeup-lip-gloss.svg',
-    'makeup-brow.svg',
-    'makeup-setting-spray.svg',
-    'makeup-contour.svg',
-  ],
-
-  'demo-hc': [
-    'haircare-oil.svg',
-    'haircare-shampoo.svg',
-    'haircare-conditioner.svg',
-    'haircare-serum.svg',
-    'haircare-mask.svg',
-    'haircare-spray.svg',
-    'haircare-leave-in.svg',
-    'haircare-dry-shampoo.svg',
-    'haircare-hair-cream.svg',
-    'haircare-scalp-treatment.svg',
-  ],
-
-  'demo-fr': [
-    'fragrance-mist.svg',
-    'fragrance-perfume.svg',
-    'fragrance-body-spray.svg',
-    'fragrance-deodorant.svg',
-    'fragrance-candle.svg',
-    'fragrance-gift-set.svg',
-    'fragrance-rose-perfume.svg',
-    'fragrance-oud-oil.svg',
-    'fragrance-lavender.svg',
-    'fragrance-jasmine.svg',
-  ],
-
-  'demo-bc': [
-    'body-care-lotion.svg',
-    'body-care-scrub.svg',
-    'body-care-butter.svg',
-    'body-care-oil.svg',
-    'body-care-soap.svg',
-    'body-care-cream.svg',
-    'body-care-shower-gel.svg',
-    'body-care-bath-bomb.svg',
-    'body-care-foot-cream.svg',
-    'body-care-massage-oil.svg',
-  ],
-};
-
-const getDemoImage = (id) => {
-  const match = id?.match(/^(demo-(?:sk|mk|hc|fr|bc))-(\d+)$/);
-
-  if (!match) return '/images/products/skincare-serum.svg';
-
-  const [, prefix, number] = match;
-  const images = LOCAL_IMAGE_POOLS[prefix];
-  const index = Number(number) - 1;
-
-  return `/images/products/${images?.[index] || images?.[0] || 'skincare-serum.svg'}`;
-};
-
 const demoProducts = [
   // ===== SKINCARE (12 products) =====
   { _id: 'demo-sk-01', slug: 'rose-gold-radiance-serum', name: 'Rose Gold Radiance Serum', category: 'Skincare', price: 3499, originalPrice: 4999, badge: 'Best Seller', rating: 4.8, reviewCount: 124, variants: ['30ml','50ml'], description: '24k gold serum for radiant skin.', images: [{ url: productImageMap['demo-sk-01'], alt: 'Rose Gold Radiance Serum', isPrimary: true }], inStock: true, benefits: ['Deep hydration', 'Anti-aging', 'Brightening'], ingredients: '24k Gold, Rose Water, Hyaluronic Acid', howToUse: 'Apply 2-3 drops daily' },
@@ -215,20 +132,6 @@ const demoProducts = [
   { _id: 'demo-bc-10', slug: 'massage-oil', name: 'Relaxing Massage Oil', category: 'Body Care', price: 1699, originalPrice: 1999, rating: 4.5, reviewCount: 47, variants: ['200ml'], description: 'Warm massage oil for relaxation.', images: [{ url: productImageMap['demo-bc-10'], alt: 'Massage Oil', isPrimary: true }], inStock: true, benefits: ['Relaxing', 'Nourishes'], ingredients: 'Jojoba Oil, Lavender Oil, Vitamin E', howToUse: 'Warm and massage into skin' },
 ];
 
-demoProducts.forEach((product) => {
-  const image = getDemoImage(product._id);
-
-  product.images = [
-    {
-      url: image,
-      alt: product.name,
-      isPrimary: true,
-    },
-  ];
-
-  product.image = image;
-});
-
 export async function GET(request, { params }) {
   try {
     const resolvedParams = await params;
@@ -262,33 +165,14 @@ export async function GET(request, { params }) {
       return Response.json({ success: false, message: 'Product not found' }, { status: 404 });
     }
 
-    // Ensure every product returns a valid local image.
-    // 1) Demo products already carry their correct per-category image.
-    // 2) DB products are matched to a demo product to adopt the local image.
-    // 3) Anything else falls back to a known existing local SVG.
-    const matched = demoProducts.find(
-      (d) =>
-        d._id === product._id ||
-        d.slug === product.slug ||
-        d.name?.toLowerCase() === product.name?.toLowerCase()
-    );
+    // Apply the same image to ALL products as requested
+    const ALL_PRODUCT_IMAGE = '/images/products/makeup-eyeshadow.svg';
 
-    if (matched) {
-      product = { ...product, images: matched.images, image: matched.image };
-    } else {
-      const existingLocal = Array.isArray(product.images)
-        ? product.images.find((img) => img?.url && img.url.startsWith('/images/products/'))
-        : null;
-      const primaryUrl =
-        existingLocal?.url ||
-        (product.image && product.image.startsWith('/images/products/') ? product.image : null) ||
-        '/images/products/skincare-serum.svg';
-      product = {
-        ...product,
-        images: [{ url: primaryUrl, alt: product.name, isPrimary: true }],
-        image: primaryUrl,
-      };
-    }
+    const mergedImages = [
+      { url: ALL_PRODUCT_IMAGE, alt: product.name, isPrimary: true }
+    ];
+
+    product = { ...product, images: mergedImages, image: ALL_PRODUCT_IMAGE };
 
     return Response.json({ success: true, product, fallback: usedFallback });
   } catch (error) {

@@ -296,6 +296,10 @@ img {
   transition: opacity 0.4s ease;
 }
 img[loading="lazy"] {
+  opacity: 0;
+}
+img[loading="lazy"].loaded,
+img[loading="lazy"][complete] {
   opacity: 1;
 }
 

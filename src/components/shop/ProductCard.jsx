@@ -5,60 +5,17 @@
  */
 
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useUIStore, useCartStore, useWishlistStore } from '@/store';
 import Button from '@/components/ui/Button';
 import { formatPrice } from '@/lib/utils';
 
-const INLINE_IMAGE_FALLBACK =
-  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='800' viewBox='0 0 600 800'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0%25' stop-color='%23f8ece7'/%3E%3Cstop offset='100%25' stop-color='%23eed7ce'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='600' height='800' fill='url(%23g)'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial,sans-serif' font-size='42' fill='%23846b61'%3EBeauty Pro%3C/text%3E%3C/svg%3E";
-
-const CATEGORY_IMAGE_FALLBACKS = {
-  skincare: '/images/products/skincare-serum.svg',
-  makeup: '/images/products/makeup-lipstick.svg',
-  haircare: '/images/products/haircare-oil.svg',
-  fragrance: '/images/products/fragrance-mist.svg',
-  'body-care': '/images/products/body-care-lotion.svg',
-};
-
-const normalizeImageUrl = (value) => {
-  if (!value || typeof value !== 'string') {
-    return '';
-  }
-
-  let normalized = value.trim().replace(/\\/g, '/');
-  if (!normalized) {
-    return '';
-  }
-
-  if (
-    normalized.startsWith('http://') ||
-    normalized.startsWith('https://') ||
-    normalized.startsWith('data:') ||
-    normalized.startsWith('blob:')
-  ) {
-    return normalized;
-  }
-
-  normalized = normalized.replace(/^\.+\//, '');
-
-  if (normalized.startsWith('/public/')) {
-    normalized = normalized.replace('/public/', '/');
-  } else if (normalized.startsWith('public/')) {
-    normalized = normalized.replace('public/', '');
-  }
-
-  if (!normalized.startsWith('/')) {
-    normalized = `/${normalized}`;
-  }
-
-  return normalized;
-};
-
 export default function ProductCard({ product, index = 0 }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [imageError, setImageError] = useState({ primary: false, secondary: false });
   const openQuickView = useUIStore((state) => state.openQuickView);
   const addItem = useCartStore((state) => state.addItem);
   const wishlistItems = useWishlistStore((state) => state.items);
@@ -99,45 +56,81 @@ export default function ProductCard({ product, index = 0 }) {
   };
 
   const productSlug = data.slug || data._id;
-  const normalizedCategory = (data.category || '').toLowerCase();
 
-  const collectedImages = [
-    ...(Array.isArray(data.images) ? data.images.map((item) => item?.url) : []),
-    data.image,
-  ]
-    .map(normalizeImageUrl)
-    .filter(Boolean);
+  // Collect up to 2 image URLs from all possible sources
+  const allImages = [];
+  
+  // From images array (limit to 2)
+  if (Array.isArray(data.images) && data.images.length > 0) {
+    data.images.slice(0, 2).forEach((img) => {
+      if (img && img.url && img.url.trim() !== '') {
+        allImages.push(img.url);
+      }
+    });
+  }
+  
+  // From legacy image field
+  if (data.image && data.image.trim() !== '' && !allImages.includes(data.image)) {
+    allImages.unshift(data.image);
+  }
 
-  const uniqueImages = [...new Set(collectedImages)];
-  const categoryFallback = CATEGORY_IMAGE_FALLBACKS[normalizedCategory] || '/images/products/skincare-serum.svg';
-  const primaryImage = uniqueImages[0] || categoryFallback;
-  const secondaryImage = uniqueImages[1] || '';
-  const showSecondaryImage = Boolean(secondaryImage && secondaryImage !== primaryImage);
+  // Build a slug-based fallback image path matching the generated SVG filenames
+  const slugKey = (data.slug || data._id || '').toLowerCase().trim().replace(/\s+/g, '-');
+  const fallbackImages = [
+    `/images/products/${slugKey}.svg`,
+    '/images/products/placeholder.svg'
+  ];
 
-  const renderImage = (src, alt, keyPrefix) => {
-    const safeSource = normalizeImageUrl(src) || categoryFallback;
+  // Ensure exactly 2 images with fallbacks
+  const primaryImage = allImages[0] || fallbackImages[0];
+  const secondaryImage = allImages[1] || fallbackImages[1] || primaryImage;
+  const validImages = [primaryImage, secondaryImage];
+
+  const isExternal = (url) => url.startsWith('http');
+  const isLocalSvg = (url) => url.endsWith('.svg') || url.endsWith('.webp');
+
+  // Reset image error when product or image changes
+  useEffect(() => {
+    setImageError({ primary: false, secondary: false });
+  }, [data._id, primaryImage, secondaryImage]);
+
+  const handleImageError = (position) => {
+    setImageError((prev) => ({ ...prev, [position]: true }));
+  };
+
+  // Render image based on type
+  const renderImage = (src, alt, position) => {
+    if (imageError[position]) {
+      return (
+        <div className="w-full h-full flex items-center justify-center text-4xl md:text-6xl bg-gradient-to-br from-luna-peach to-luna-rose-gold">
+          ✨
+        </div>
+      );
+    }
+
+    if (isExternal(src) || isLocalSvg(src)) {
+      return (
+        <img
+          src={src}
+          alt={alt}
+          loading="lazy"
+          className={`w-full h-full ${isLocalSvg(src) ? 'object-contain' : 'object-cover'}`}
+          onError={() => handleImageError(position)}
+        />
+      );
+    }
 
     return (
-      <img
-        key={`${keyPrefix}-${safeSource}`}
-        src={safeSource}
+      <Image
+        src={src}
         alt={alt}
+        fill
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
+        className="object-cover"
         loading="lazy"
-        className="w-full h-full object-contain"
-        onError={(event) => {
-          const imageElement = event.currentTarget;
-
-          if (!imageElement.dataset.usedPlaceholder) {
-            imageElement.dataset.usedPlaceholder = 'true';
-            imageElement.src = '/images/products/placeholder.svg';
-            return;
-          }
-
-          if (!imageElement.dataset.usedInlineFallback) {
-            imageElement.dataset.usedInlineFallback = 'true';
-            imageElement.src = INLINE_IMAGE_FALLBACK;
-          }
-        }}
+        decoding="async"
+        quality={75}
+        onError={() => handleImageError(position)}
       />
     );
   };
@@ -156,13 +149,13 @@ export default function ProductCard({ product, index = 0 }) {
         <div className="relative aspect-[3/4] bg-luna-beige rounded-2xl md:rounded-3xl overflow-hidden mb-3 md:mb-4">
           {/* Primary Image - always visible */}
           <div className={`absolute inset-0 transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`}>
-            {renderImage(primaryImage, data.name, 'primary')}
+            {renderImage(validImages[0], data.name, 'primary')}
           </div>
 
           {/* Secondary Image - shows on hover */}
-          {showSecondaryImage && (
+          {validImages[1] && validImages[1] !== validImages[0] && (
             <div className={`absolute inset-0 transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
-              {renderImage(secondaryImage, `${data.name} - View 2`, 'secondary')}
+              {renderImage(validImages[1], `${data.name} - View 2`, 'secondary')}
             </div>
           )}
 
@@ -212,6 +205,13 @@ export default function ProductCard({ product, index = 0 }) {
             </svg>
           </motion.button>
 
+          {/* Image counter dots */}
+          {validImages[1] && validImages[1] !== validImages[0] && (
+            <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
+              <span className={`w-1.5 h-1.5 rounded-full transition-colors ${isHovered ? 'bg-white/40' : 'bg-white'}`} />
+              <span className={`w-1.5 h-1.5 rounded-full transition-colors ${isHovered ? 'bg-white' : 'bg-white/40'}`} />
+            </div>
+          )}
         </div>
 
         <div className="px-0.5">
