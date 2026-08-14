@@ -132,6 +132,114 @@ const demoProducts = [
   { _id: 'demo-bc-10', slug: 'massage-oil', name: 'Relaxing Massage Oil', category: 'body-care', price: 1699, originalPrice: 1999, rating: 4.5, reviewCount: 47, variants: ['200ml'], description: 'Warm massage oil for relaxation.', images: [{ url: productImageMap['demo-bc-10'], alt: 'Massage Oil', isPrimary: true }], inStock: true, benefits: ['Relaxing', 'Nourishes'] },
 ];
 
+
+
+
+const LOCAL_IMAGE_POOLS = {
+  'demo-sk': [
+    'skincare-serum.svg',
+    'skincare-cream.svg',
+    'skincare-mist.svg',
+    'skincare-cleanser.svg',
+    'skincare-moisturizer.svg',
+    'skincare-sunscreen.svg',
+    'skincare-vitamin-c.svg',
+    'skincare-toner.svg',
+    'skincare-eye-cream.svg',
+    'skincare-face-wash.svg',
+    'skincare-night-cream.svg',
+    'skincare-mask.svg',
+  ],
+
+  'demo-mk': [
+    'makeup-lipstick.svg',
+    'makeup-foundation.svg',
+    'makeup-eyeshadow.svg',
+    'makeup-blush.svg',
+    'makeup-mascara.svg',
+    'makeup-highlighter.svg',
+    'makeup-primer.svg',
+    'makeup-concealer.svg',
+    'makeup-lip-gloss.svg',
+    'makeup-brow.svg',
+    'makeup-setting-spray.svg',
+    'makeup-contour.svg',
+  ],
+
+  'demo-hc': [
+    'haircare-oil.svg',
+    'haircare-shampoo.svg',
+    'haircare-conditioner.svg',
+    'haircare-serum.svg',
+    'haircare-mask.svg',
+    'haircare-spray.svg',
+    'haircare-leave-in.svg',
+    'haircare-dry-shampoo.svg',
+    'haircare-hair-cream.svg',
+    'haircare-scalp-treatment.svg',
+  ],
+
+  'demo-fr': [
+    'fragrance-mist.svg',
+    'fragrance-perfume.svg',
+    'fragrance-body-spray.svg',
+    'fragrance-deodorant.svg',
+    'fragrance-candle.svg',
+    'fragrance-gift-set.svg',
+    'fragrance-rose-perfume.svg',
+    'fragrance-oud-oil.svg',
+    'fragrance-lavender.svg',
+    'fragrance-jasmine.svg',
+  ],
+
+  'demo-bc': [
+    'body-care-lotion.svg',
+    'body-care-scrub.svg',
+    'body-care-butter.svg',
+    'body-care-oil.svg',
+    'body-care-soap.svg',
+    'body-care-cream.svg',
+    'body-care-shower-gel.svg',
+    'body-care-bath-bomb.svg',
+    'body-care-foot-cream.svg',
+    'body-care-massage-oil.svg',
+  ],
+};
+
+const getDemoImage = (id) => {
+  const match = id?.match(/^(demo-(?:sk|mk|hc|fr|bc))-(\d+)$/);
+
+  if (!match) return '/images/products/skincare-serum.svg';
+
+  const [, prefix, number] = match;
+  const images = LOCAL_IMAGE_POOLS[prefix];
+  const index = Number(number) - 1;
+
+  return `/images/products/${images?.[index] || images?.[0] || 'skincare-serum.svg'}`;
+};
+
+// Fix all demo product image URLs
+demoProducts.forEach((product) => {
+  const image = getDemoImage(product._id);
+
+  product.images = [
+    {
+      url: image,
+      alt: product.name,
+      isPrimary: true,
+    },
+  ];
+
+  product.image = image;
+});
+
+
+
+
+
+
+
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -249,21 +357,43 @@ export async function GET(request) {
     //   return { ...p, images: mergedImages, image: ALL_PRODUCT_IMAGE };
     // });
 
-
-    products = products.map((p) => {
+products = products.map((p) => {
   const demo = demoProducts.find(
-    (d) => d._id === p._id || d.name?.toLowerCase() === p.name?.toLowerCase()
+    (d) =>
+      d._id === p._id ||
+      d.name?.toLowerCase() === p.name?.toLowerCase()
   );
 
-  if (demo?.images?.length) {
+  if (demo) {
     return {
       ...p,
       images: demo.images,
-      image: demo.images[0]?.url,
+      image: demo.image,
+      slug: demo.slug,
     };
   }
 
-  return p;
+  const existingImages = Array.isArray(p.images)
+    ? p.images.filter(
+        (img) => img?.url && img.url.trim() !== ''
+      )
+    : [];
+
+  const primaryUrl =
+    existingImages[0]?.url ||
+    '/images/products/skincare-serum.svg';
+
+  return {
+    ...p,
+    images: [
+      {
+        url: primaryUrl,
+        alt: p.name,
+        isPrimary: true,
+      },
+    ],
+    image: primaryUrl,
+  };
 });
 
     // Filter by category
