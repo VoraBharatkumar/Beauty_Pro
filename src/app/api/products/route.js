@@ -239,15 +239,32 @@ export async function GET(request) {
     ];
 
     // Apply the same image to ALL products as requested
-    const ALL_PRODUCT_IMAGE = '/images/products/makeup-eyeshadow.svg';
+    // const ALL_PRODUCT_IMAGE = '/images/products/makeup-eyeshadow.svg';
+
+    // products = products.map((p) => {
+    //   const mergedImages = [
+    //     { url: ALL_PRODUCT_IMAGE, alt: p.name, isPrimary: true }
+    //   ];
+      
+    //   return { ...p, images: mergedImages, image: ALL_PRODUCT_IMAGE };
+    // });
+
 
     products = products.map((p) => {
-      const mergedImages = [
-        { url: ALL_PRODUCT_IMAGE, alt: p.name, isPrimary: true }
-      ];
-      
-      return { ...p, images: mergedImages, image: ALL_PRODUCT_IMAGE };
-    });
+  const demo = demoProducts.find(
+    (d) => d._id === p._id || d.name?.toLowerCase() === p.name?.toLowerCase()
+  );
+
+  if (demo?.images?.length) {
+    return {
+      ...p,
+      images: demo.images,
+      image: demo.images[0]?.url,
+    };
+  }
+
+  return p;
+});
 
     // Filter by category
     if (category && category !== 'all') {
